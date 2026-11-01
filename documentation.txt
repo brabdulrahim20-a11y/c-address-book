@@ -1,0 +1,75 @@
+ADDRESS BOOK PROJECT
+DOCUMENTATION
+
+CONTENTS
+1. About the project
+2. Project files
+3. Main data types
+4. Functions and what they do
+5. Input rules
+6. Saving and running the program
+
+1. ABOUT THE PROJECT
+This is my address book program written in C. It stores a person's name, phone number and email address. The menu lets me create, search, edit, delete and display contacts. It can hold up to 100 contacts.
+
+2. PROJECT FILES
+main.c - Shows the menu and calls the function for the option I choose.
+contact.c - Contains the functions that work with contacts.
+contact.h - Contains the Contact and AddressBook structures and the function declarations.
+contact.txt - Stores the contacts. Each line has this format:
+name,phone,email
+
+3. MAIN DATA TYPES
+Contact stores one person's name, phone number and email address.
+AddressBook stores the contact list and the number of contacts currently in it.
+
+4. FUNCTIONS AND WHAT THEY DO
+
+4.1 main()
+This is where the program starts. It loads the saved contacts, displays the menu, reads my choice and calls the matching function. If I type a letter instead of a menu number, it clears that input and asks again.
+
+4.2 initialize()
+This sets the contact count to zero and reads contacts from contact.txt when the program starts. It stops reading if the file ends or the address book reaches 100 contacts.
+
+4.3 validname()
+This checks that a name has only letters and spaces. It also checks for a duplicate name. It returns 1 when the name is accepted and 0 when it is not. When editing, it skips the contact being edited while checking duplicates.
+
+4.4 validphone()
+This checks that a phone number has digits only and no spaces. It also checks for a duplicate phone number. It returns 1 if accepted and 0 if rejected. The program does not require a fixed number of digits.
+
+4.5 validemail()
+This checks that an email uses lowercase letters, digits, @ and dots. It checks that there is one @, a dot after it, no dot right beside it, and a lowercase letter at the end. It also checks for a duplicate email. It returns 1 if accepted and 0 if rejected.
+
+4.6 findContactNumber()
+This asks whether I want to find a contact by name, phone or email. It displays the matching contacts and asks me to choose one. It returns that contact's position in the address book, or -1 if I do not choose a valid contact. Edit and delete use this function.
+
+4.7 createContact()
+This asks for a name, phone number and email address. It checks each value with its validation function and gives up to three attempts for each field. If all three values are accepted, it adds the contact to the list.
+
+4.8 searchContact()
+This asks which field to search and shows the matching contacts. A search can match part of a name, phone number or email address, and it ignores uppercase or lowercase differences.
+
+4.9 editContact()
+This finds the contact first. Then I can change the name, phone, email or all three fields. The new values are checked before they replace the old ones.
+
+4.10 deleteContact()
+This finds and displays the contact I selected. It asks me to confirm before deleting. If I confirm, the later contacts move up one position and the contact count decreases.
+
+4.11 listContacts()
+This displays the name, phone number and email address for every contact in columns.
+
+4.12 saveContactsToFile()
+This writes the current contact list to contact.txt. It replaces the previous contents of that file with the current list.
+
+4.13 saveAndExit()
+This closes the program. It does not save the contacts, so I use menu option 6 before exiting if I want to keep my changes.
+
+5. INPUT RULES
+Names can contain letters and spaces. Phone numbers can contain digits only, with no spaces. Emails must be lowercase and follow the checks described above. Duplicate names, phone numbers and emails are not accepted. I get up to three attempts when entering each field while creating or editing a contact.
+
+6. SAVING AND RUNNING THE PROGRAM
+When the program starts, it reads contact.txt from the current project folder. After making changes, I choose option 6 to save. Option 7 exits without saving changes that I have not saved yet.
+
+To compile and run from the project folder, I use:
+gcc main.c contact.c -o addressbook
+./addressbook
